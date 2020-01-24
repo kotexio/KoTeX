@@ -15,26 +15,39 @@ enum class Units(private val repr: String) {
 }
 
 open class Length(private val value: String) {
+    open operator fun times(fraction: Number) = Length("$fraction$value")
     override fun toString(): String = value
 }
 
-data class MeasuredLength(val length: Double, val units: Units): Length("$length$units")
+data class MeasuredLength(val length: Number, val units: Units): Length("$length$units") {
+    override operator fun times(fraction: Number) =
+        MeasuredLength(fraction.toDouble() * length.toDouble(), units)
+}
 
-fun pt(length: Double) = MeasuredLength(length, Units.PT)
+operator fun Number.times(length: Length): Length {
+    return length.times(this)
+}
 
-fun mm(length: Double) = MeasuredLength(length, Units.MM)
+val Number.pt: MeasuredLength
+    get() = MeasuredLength(this, Units.PT)
 
-fun cm(length: Double) = MeasuredLength(length, Units.CM)
+val Number.mm: MeasuredLength
+    get() = MeasuredLength(this, Units.MM)
 
-fun inch(length: Double) = MeasuredLength(length, Units.IN)
+val Number.cm: MeasuredLength
+    get() = MeasuredLength(this, Units.CM)
 
-fun ex(length: Double) = MeasuredLength(length, Units.EX)
+val Number.inch: MeasuredLength
+    get() = MeasuredLength(this, Units.IN)
 
-fun em(length: Double) = MeasuredLength(length, Units.EM)
+val Number.ex: MeasuredLength
+    get() = MeasuredLength(this, Units.EX)
 
-fun mu(length: Double) = MeasuredLength(length, Units.MU)
+val Number.em: MeasuredLength
+    get() = MeasuredLength(this, Units.EM)
 
-fun textWidth(fraction: Double) = Length("$fraction\\textwidth")
+val Number.mu: MeasuredLength
+    get() = MeasuredLength(this, Units.MU)
 
 fun textWidth() = Length("\\textwidth")
 
