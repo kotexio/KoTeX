@@ -9,19 +9,25 @@ enum class Units(private val repr: String) {
     EM("em"),
     MU("mu");
 
-    override fun toString(): String {
-        return repr
-    }
+    override fun toString(): String = repr
 }
 
-open class Length(private val value: String) {
-    open operator fun times(fraction: Number) = Length("$fraction$value")
-    override fun toString(): String = value
+interface Length {
+    operator fun times(fraction: Number): Length
 }
 
-data class MeasuredLength(val length: Number, val units: Units): Length("$length$units") {
+data class MeasuredLength(val length: Number, val units: Units): Length {
     override operator fun times(fraction: Number) =
         MeasuredLength(fraction.toDouble() * length.toDouble(), units)
+
+    override fun toString(): String = "$length$units"
+}
+
+data class SpecialLength(val length: String, val fraction: Number = 1.0): Length {
+    override fun times(fraction: Number) =
+        SpecialLength(length, fraction.toDouble() * this.fraction.toDouble())
+
+    override fun toString(): String = "${if (fraction.toDouble() == 1.0) "" else "$fraction"}$length"
 }
 
 operator fun Number.times(length: Length): Length {
@@ -49,6 +55,6 @@ val Number.em: MeasuredLength
 val Number.mu: MeasuredLength
     get() = MeasuredLength(this, Units.MU)
 
-fun textWidth() = Length("\\textwidth")
+fun textWidth() = SpecialLength("\\textwidth")
 
 
