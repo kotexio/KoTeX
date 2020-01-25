@@ -13,8 +13,8 @@ abstract class Tag(val name: String) : Element() {
 
     val children = arrayListOf<Element>()
     fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
-        tag.init()
         tag.parent = this
+        tag.init()
         children.add(tag)
         return tag
     }

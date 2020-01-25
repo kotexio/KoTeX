@@ -16,4 +16,8 @@ class Verbatim: Environment("verbatim") {
 }
 
 fun Tag.verbatim(text: String): Verbatim = initTag(Verbatim()) { +text }
-fun verb(text: String) = "\\verb|$text|"
+
+fun Document.verb(text: String): String {
+    preamble.usePackage("verbatim")
+    return "\\verb|$text|"
+}

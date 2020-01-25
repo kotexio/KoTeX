@@ -39,8 +39,15 @@ class Frame(title: String): Environment("frame", title) {
     fun String.footnote(note: String) = this + this@Frame.footnote(note)
     fun verbatim(text: String): Verbatim {
         fun oldVerbatim(tag: Tag, text: String) = tag.verbatim(text)
-        if (!opts.contains("fragile")) opts.add("fragile")
+        fragile()
         return oldVerbatim(this, text)
+    }
+    fun verb(text: String): String {
+        fragile()
+        return getDocument().verb(text)
+    }
+    fun fragile() {
+        if (!opts.contains("fragile")) opts.add("fragile")
     }
 }
 
