@@ -24,7 +24,7 @@ class Beamer: Preamble("beamer") {
 
     override fun render(builder: StringBuilder) {
         super.render(builder)
-        builder.appendln("\\usetheme{$theme}")
+        builder.appendLine("\\usetheme{$theme}")
     }
 }
 
