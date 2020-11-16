@@ -175,4 +175,54 @@ fun inCollection(id: String,
         .add("note", note)
         .build()
 
+fun inProceedings(id: String,
+                  author: String,
+                  title: String,
+                  bookTitle: String,
+                  year: Int,
+                  editor: String? = null,
+                  volume: Int? = null,
+                  number: Int? = null,
+                  series: String? = null,
+                  pages: String? = null,
+                  address: String? = null,
+                  month: Int? = null,
+                  organization: String? = null,
+                  publisher: String? = null,
+                  note: String? = null
+): Entry = EntryBuilder("inproceedings", id)
+        .add("author", author)
+        .add("title", title)
+        .add("booktitle", bookTitle)
+        .add("year", year)
+        .add("editor", editor)
+        .add("volume", volume)
+        .add("number", number)
+        .add("series", series)
+        .add("pages", pages)
+        .add("address", address)
+        .add("month", month)
+        .add("organization", organization)
+        .add("publisher", publisher)
+        .add("note", note)
+        .build()
+
+fun manual(id: String,
+           title: String,
+           author: String? = null,
+           organization: String? = null,
+           edition: String? = null,
+           month: String? = null,
+           year: Int? = null,
+           note: String? = null
+): Entry = EntryBuilder("manual", id)
+        .add("title", title)
+        .add("author", author)
+        .add("organization", organization)
+        .add("edition", edition)
+        .add("month", month)
+        .add("year", year)
+        .add("note", note)
+        .build()
+
 
