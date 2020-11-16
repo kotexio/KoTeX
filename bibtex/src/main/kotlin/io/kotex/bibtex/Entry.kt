@@ -225,4 +225,120 @@ fun manual(id: String,
         .add("note", note)
         .build()
 
+fun mastersThesis(id: String,
+                  author: String,
+                  title: String,
+                  school: String,
+                  year: Int,
+                  type: String?,
+                  address: String?,
+                  month: String?,
+                  note: String?
+): Entry = EntryBuilder("mastersthesis", id)
+        .add("author", author)
+        .add("title", title)
+        .add("school", school)
+        .add("year", year)
+        .add("type", type)
+        .add("address", address)
+        .add("month", month)
+        .add("note", note)
+        .build()
 
+fun misc(id: String,
+         author: String? = null,
+         title: String? = null,
+         howPublished: String? = null,
+         month: String? = null,
+         year: Int? = null,
+         note: String? = null
+): Entry = EntryBuilder("misc", id)
+        .add("author", author)
+        .add("title", title)
+        .add("howpublished", howPublished)
+        .add("month", month)
+        .add("year", year)
+        .add("note", note)
+        .build()
+
+fun phdThesis(id: String,
+              author: String,
+              title: String,
+              school: String,
+              year: Int,
+              type: String? = null,
+              address: String? = null,
+              month: String? = null,
+              note: String? = null
+): Entry = EntryBuilder("phdthesis", id)
+        .add("author", author)
+        .add("title", title)
+        .add("school", school)
+        .add("year", year)
+        .add("type", type)
+        .add("address", address)
+        .add("month", month)
+        .add("note", note)
+        .build()
+
+fun proceedings(id: String,
+                title: String,
+                year: Int,
+                editor: String? = null,
+                volume: Int? = null,
+                number: Int? = null,
+                series: String? = null,
+                address: String? = null,
+                publisher: String? = null,
+                month: Int? = null,
+                organization: String? = null,
+                note: String? = null
+): Entry = EntryBuilder("proceedings", id)
+        .add("title", title)
+        .add("year", year)
+        .add("editor", editor)
+        .add("volume", volume)
+        .add("number", number)
+        .add("series", series)
+        .add("address", address)
+        .add("publisher", publisher)
+        .add("month", month)
+        .add("organization", organization)
+        .add("note", note)
+        .build()
+
+fun techReport(id: String,
+               author: String,
+               title: String,
+               institution: String,
+               year: Int,
+               type: String? = null,
+               number: Int? = null,
+               address: String? = null,
+               month: String? = null,
+               note: String? = null
+): Entry = EntryBuilder("techreport", id)
+        .add("author", author)
+        .add("title", title)
+        .add("institution", institution)
+        .add("year", year)
+        .add("type", type)
+        .add("number", number)
+        .add("address", address)
+        .add("month", month)
+        .add("note", note)
+        .build()
+
+fun unpublished(id: String,
+                author: String,
+                title: String,
+                note: String,
+                year: Int? = null,
+                month: String? = null
+): Entry = EntryBuilder("unpublished", id)
+        .add("author", author)
+        .add("title", title)
+        .add("note", note)
+        .add("year", year)
+        .add("month", month)
+        .build()
