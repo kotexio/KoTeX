@@ -70,7 +70,7 @@ abstract class Environment(name: String, val params: MutableList<String> = mutab
 }
 
 class Document(val preamble: Preamble) : Environment("document") {
-//    fun abstract(init: Abstract.() -> Unit): Abstract = initTag(Abstract(), init)
+    fun abstract(init: Abstract.() -> Unit): Abstract = initTag(Abstract(), init)
 
     fun section(title: String, init: Section.() -> Unit): Section = initTag(Section(title), init)
 
@@ -103,12 +103,6 @@ class Section(title: String) : SingleTitledTag("section", title) {
 class SubSection(title: String) : SingleTitledTag("subsection", title)
 
 data class Author(val name: String, val affiliation: String? = null)
-
-class Article : Preamble("article")
-
-fun article(body: Article.() -> Unit): Article {
-    TODO()
-}
 
 fun Document.makeTitle() = +"\\maketitle"
 
