@@ -4,7 +4,7 @@ to create beautiful scientific documents and presentations using a strongly type
 
 The main idea behind this work is called a [type-safe builder](https://kotlinlang.org/docs/reference/type-safe-builders.html), which is considered one of the most powerful Kotlin features. 
 
-The project is in a very early stage of development, and there is only a tiny subset of LaTeX features are supported. 
+The project is in a very early stage of development, and there is only a tiny subset of LaTeX features is supported. 
 Nevertheless, it can be used to create articles and Beamer presentations.
 
 This is the smallest Beamer example: 
