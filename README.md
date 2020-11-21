@@ -1,6 +1,6 @@
 # KoTeX
 KoTeX stands for Kotlin DSL for LaTeX. This started as a research project. It reflects the authors' interest in how 
-to create beautiful scientific documents and presentations using strongly typed modern general-purpose programming languages. 
+to create beautiful scientific documents and presentations using a strongly typed modern general-purpose programming language. 
 
 The main idea behind this work is called a [type-safe builder](https://kotlinlang.org/docs/reference/type-safe-builders.html), which is considered one of the most powerful Kotlin features. 
 
