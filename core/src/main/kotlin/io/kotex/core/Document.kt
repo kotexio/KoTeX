@@ -59,9 +59,9 @@ abstract class Environment(name: String, val params: MutableList<String> = mutab
         builder.append("$indent\\begin{$name}")
         opts.forEach { builder.append("[$it]") }
         params.forEach { builder.append("{$it}") }
-        builder.appendln()
+        builder.appendLine()
         renderContent(builder, indent)
-        builder.appendln("$indent\\end{$name}")
+        builder.appendLine("$indent\\end{$name}")
     }
 
     protected open fun renderContent(builder: StringBuilder, indent: String) {
