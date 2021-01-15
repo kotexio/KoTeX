@@ -1,5 +1,6 @@
 package io.kotex.core
 
+import java.io.File
 import java.lang.StringBuilder
 
 abstract class Element {
@@ -69,12 +70,7 @@ abstract class Environment(name: String, val params: MutableList<String> = mutab
     }
 }
 
-typealias Action = (Document) -> Unit
-
 class Document(val preamble: Preamble) : Environment("document") {
-    val beforeActions = mutableListOf<Action>()
-    val afterActions = mutableListOf<Action>()
-
     fun abstract(init: Abstract.() -> Unit): Abstract = initTag(Abstract(), init)
 
     fun section(title: String, init: Section.() -> Unit): Section = initTag(Section(title), init)
@@ -83,13 +79,6 @@ class Document(val preamble: Preamble) : Environment("document") {
         val builder = StringBuilder()
         render(builder, "")
         return preamble.toString() + builder.toString()
-    }
-
-    fun build() {
-        // beforeActions
-        println(toTex())
-        // save to tex and run pdflatex
-        // afterActions
     }
 }
 
