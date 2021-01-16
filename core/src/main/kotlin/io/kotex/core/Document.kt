@@ -1,8 +1,5 @@
 package io.kotex.core
 
-import java.io.File
-import java.lang.StringBuilder
-
 abstract class Element {
     var parent: Element? = null
         internal set
@@ -11,8 +8,8 @@ abstract class Element {
 }
 
 abstract class Tag(val name: String) : Element() {
-
     val children = arrayListOf<Element>()
+
     fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
         tag.parent = this
         tag.init()

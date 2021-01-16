@@ -1,27 +1,14 @@
 package io.kotex.bibtex
 
+import div
 import io.kotex.core.Document
 import io.kotex.core.TextElement
-import java.io.File
-
-sealed class Bibliography {
-    abstract fun getPath(): File
-}
-
-class BibTeXFile(private val path: File): Bibliography() {
-    override fun getPath(): File = path
-}
-
-class GeneratedBibliography : Bibliography() {
-    private val tempFile = createTempFile(suffix = ".bib")
-
-    override fun getPath(): File = tempFile
-}
+import io.kotex.core.writer
 
 val Document.bibTexEntries: MutableList<Entry>
     get() = mutableListOf()
 
-val Document.bibTexFiles: MutableList<Bibliography>
+val Document.bibTexFiles: MutableList<String>
     get() = mutableListOf()
 
 fun Document.cite(entry: Entry): String {
@@ -33,9 +20,18 @@ fun Document.cite(bibTexRef: String): String =
     "\\cite{$bibTexRef}"
 
 fun Document.bibliography(files: List<String> = listOf()) {
-    bibTexFiles.addAll(files.map { BibTeXFile(File(it)) })
-
-    if (bibTexEntries.isEmpty()) bibTexFiles.add(GeneratedBibliography())
-
+    bibTexFiles.addAll(files)
     children.add(TextElement("\\bibliography{" + files.joinToString(",") + "}"))
+}
+
+fun Document.generateBibTex(filename: String) {
+    writer.add { file ->
+        val bibFile = file.parentFile / filename
+        val builder = StringBuilder()
+        bibTexEntries.forEach {
+            builder.appendLine(it.toString())
+        }
+        bibFile.writeText(builder.toString())
+    }
+    bibTexFiles.add(filename)
 }
