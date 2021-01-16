@@ -3,7 +3,7 @@ import io.kotex.beamer.frame
 import io.kotex.core.document
 import io.kotex.core.makeTitle
 
-document(beamer {
+val doc = document(beamer {
     title = "A minimal example"
     author = "John Doe" / "Centre for Modern Beamer Themes"
     theme = "metropolis"
@@ -15,4 +15,6 @@ document(beamer {
             +"Hello world!"
         }
     }
-}.build()
+}
+
+println(doc.toTex())
