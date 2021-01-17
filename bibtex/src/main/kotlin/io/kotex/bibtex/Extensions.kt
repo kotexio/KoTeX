@@ -13,7 +13,7 @@ val Document.bibTexFiles: MutableList<String>
 
 fun Document.cite(entry: Entry): String {
     bibTexEntries.add(entry)
-    return "\\cite{${entry.id}"
+    return "\\cite{${entry.id}}"
 }
 
 fun Document.cite(bibTexRef: String): String =
@@ -24,14 +24,14 @@ fun Document.bibliography(files: List<String> = listOf()) {
     children.add(TextElement("\\bibliography{" + files.joinToString(",") + "}"))
 }
 
-fun Document.generateBibTex(filename: String) {
+fun Document.generateBibTex(name: String) {
     writer.add { file ->
-        val bibFile = file.parentFile / filename
+        val bibFile = file.parentFile / "$name.bib"
         val builder = StringBuilder()
         bibTexEntries.forEach {
             builder.appendLine(it.toString())
         }
         bibFile.writeText(builder.toString())
     }
-    bibTexFiles.add(filename)
+    bibTexFiles.add(name)
 }

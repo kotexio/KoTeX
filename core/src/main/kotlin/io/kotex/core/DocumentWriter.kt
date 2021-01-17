@@ -20,4 +20,6 @@ class DocumentWriter(private val document: Document) {
 val Document.writer: DocumentWriter
     get() = DocumentWriter(this)
 
-fun Document.write(filename: String) = writer.write(File(filename))
+fun Document.write(file: File) = writer.write(file)
+
+fun Document.write(filename: String) = write(File(filename))
