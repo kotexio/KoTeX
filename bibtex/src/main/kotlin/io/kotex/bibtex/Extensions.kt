@@ -1,15 +1,20 @@
 package io.kotex.bibtex
 
+import backingField
 import div
 import io.kotex.core.Document
 import io.kotex.core.TextElement
 import io.kotex.core.writer
 
+private val bibTexEntriesMap = mutableMapOf<Document, MutableList<Entry>>()
+
+private val bibTexFileMap = mutableMapOf<Document, MutableList<String>>()
+
 val Document.bibTexEntries: MutableList<Entry>
-    get() = mutableListOf()
+    get() = this.backingField(bibTexEntriesMap) { mutableListOf() }
 
 val Document.bibTexFiles: MutableList<String>
-    get() = mutableListOf()
+    get() = this.backingField(bibTexFileMap) { mutableListOf() }
 
 fun Document.cite(entry: Entry): String {
     bibTexEntries.add(entry)
@@ -21,7 +26,7 @@ fun Document.cite(bibTexRef: String): String =
 
 fun Document.bibliography(files: List<String> = listOf()) {
     bibTexFiles.addAll(files)
-    children.add(TextElement("\\bibliography{" + files.joinToString(",") + "}"))
+    children.add(TextElement("\\bibliography{" + bibTexFiles.joinToString(",") + "}"))
 }
 
 fun Document.generateBibTex(name: String) {

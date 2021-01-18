@@ -1,5 +1,6 @@
 package io.kotex.core
 
+import backingField
 import java.io.File
 
 typealias WriteAction = (File) -> Unit
@@ -17,8 +18,10 @@ class DocumentWriter(private val document: Document) {
     }
 }
 
+val writerMap = mutableMapOf<Document, DocumentWriter>()
+
 val Document.writer: DocumentWriter
-    get() = DocumentWriter(this)
+    get() = backingField(writerMap) { DocumentWriter(this) }
 
 fun Document.write(file: File) = writer.write(file)
 
