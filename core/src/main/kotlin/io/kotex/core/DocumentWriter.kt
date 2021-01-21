@@ -14,6 +14,7 @@ class DocumentWriter(private val document: Document) {
 
     fun write(file: File) {
         writeChain.forEach { it.invoke(file) }
+        if (!file.parentFile.exists()) file.parentFile.mkdirs()
         file.writeText(document.toTex())
     }
 }

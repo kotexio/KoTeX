@@ -36,6 +36,7 @@ fun Document.generateBibTex(name: String) {
         bibTexEntries.forEach {
             builder.appendLine(it.toString())
         }
+        if (!bibFile.parentFile.exists()) bibFile.parentFile.mkdirs()
         bibFile.writeText(builder.toString())
     }
     bibTexFiles.add(name)
