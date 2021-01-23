@@ -2,9 +2,7 @@ package io.kotex.bibtex
 
 import backingField
 import div
-import io.kotex.core.Document
-import io.kotex.core.TextElement
-import io.kotex.core.writer
+import io.kotex.core.*
 
 private val bibTexEntriesMap = mutableMapOf<Document, MutableList<Entry>>()
 
@@ -24,9 +22,11 @@ fun Document.cite(entry: Entry): String {
 fun Document.cite(bibTexRef: String): String =
     "\\cite{$bibTexRef}"
 
-fun Document.bibliography(files: List<String> = listOf()) {
-    bibTexFiles.addAll(files)
-    children.add(TextElement("\\bibliography{" + bibTexFiles.joinToString(",") + "}"))
+fun Tag.bibliography(style: String, files: List<String> = listOf()) {
+    val doc = this.getDocument()
+    doc.bibTexFiles.addAll(files)
+    children.add(TextElement("\\bibliographystyle{$style}"))
+    children.add(TextElement("\\bibliography{" + doc.bibTexFiles.joinToString(",") + "}"))
 }
 
 fun Document.generateBibTex(name: String) {

@@ -26,7 +26,7 @@ class TestExtensions {
         }) {
             +"Hello all${cite(testEntry)}"
             generateBibTex("test")
-            bibliography()
+            bibliography("plain")
         }
         val tempDir = createTempDir()
         println("$tempDir")
