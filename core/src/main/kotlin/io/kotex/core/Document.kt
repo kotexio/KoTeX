@@ -139,3 +139,7 @@ fun Document.textbf(text: String) = text.textbf()
 
 val Document.space: String
     get() = "\\,"
+
+fun Tag.appendix() {
+    children.add(TextElement("\\appendix"))
+}
