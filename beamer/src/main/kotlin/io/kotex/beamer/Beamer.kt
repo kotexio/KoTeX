@@ -36,19 +36,25 @@ fun beamer(init: Beamer.() -> Unit): Beamer {
 
 class Frame(title: String): Environment("frame", title) {
     fun footnote(text: String) = "\\footnote[frame]{$text}"
+
     fun String.footnote(note: String) = this + this@Frame.footnote(note)
+
     fun verbatim(text: String): Verbatim {
         fun oldVerbatim(tag: Tag, text: String) = tag.verbatim(text)
         fragile()
         return oldVerbatim(this, text)
     }
+
     fun verb(text: String): String {
         fragile()
         return getDocument().verb(text)
     }
-    fun fragile() {
-        if (!opts.contains("fragile")) opts.add("fragile")
-    }
+
+    fun fragile() = addOption("fragile")
+
+    fun standout() = addOption("standout")
+
+    fun allowFrameBreaks() = addOption("allowframebreaks")
 }
 
 fun Tag.frame(title: String, init: Frame.() -> Unit): Frame = initTag(Frame(title), init)

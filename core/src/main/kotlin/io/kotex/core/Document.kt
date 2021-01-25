@@ -65,6 +65,10 @@ abstract class Environment(name: String, val params: MutableList<String> = mutab
     protected open fun renderContent(builder: StringBuilder, indent: String) {
         super.render(builder, indent)
     }
+
+    protected fun addOption(option: String) {
+        if (!opts.contains(option)) opts.add(option)
+    }
 }
 
 class Document(val preamble: Preamble) : Environment("document") {
