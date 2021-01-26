@@ -147,3 +147,8 @@ val Document.space: String
 fun Tag.appendix() {
     children.add(TextElement("\\appendix"))
 }
+
+fun Tag.url(ref: String): String {
+    usePackage("hyperref", opts = listOf("unicode"))
+    return "\\url{$ref}"
+}

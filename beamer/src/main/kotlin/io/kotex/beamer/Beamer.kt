@@ -55,6 +55,10 @@ class Frame(title: String): Environment("frame", title) {
     fun standout() = addOption("standout")
 
     fun allowFrameBreaks() = addOption("allowframebreaks")
+
+    fun Tag.url(ref: String): String {
+        return "\\url{$ref}"
+    }
 }
 
 fun Tag.frame(title: String, init: Frame.() -> Unit): Frame = initTag(Frame(title), init)
