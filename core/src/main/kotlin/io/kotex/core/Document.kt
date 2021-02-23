@@ -4,7 +4,11 @@ abstract class Element {
     var parent: Element? = null
         internal set
 
+    /** Renders TeX into StringBuilder. */
     abstract fun render(builder: StringBuilder, indent: String)
+
+    /** Renders plain text into StringBuilder. */
+    open fun renderPlainText(builder: StringBuilder, indent: String): Unit = TODO()
 }
 
 abstract class Tag(val name: String) : Element() {
@@ -24,11 +28,22 @@ abstract class Tag(val name: String) : Element() {
         after()
     }
 
+    override fun renderPlainText(builder: StringBuilder, indent: String) {
+        children.forEach {
+            it.renderPlainText(builder, "$indent  ")
+        }
+        after()
+    }
+
     open fun after() {}
 }
 
 class TextElement(val text: String) : Element() {
     override fun render(builder: StringBuilder, indent: String) {
+        builder.appendLine("$indent$text")
+    }
+
+    override fun renderPlainText(builder: StringBuilder, indent: String) {
         builder.appendLine("$indent$text")
     }
 }
@@ -48,6 +63,11 @@ abstract class SingleTitledTag(name: String, val title: String, val opts: List<S
         builder.append("$indent\\$name$options{$title}\n")
         super.render(builder, indent)
     }
+
+    override fun renderPlainText(builder: StringBuilder, indent: String) {
+        builder.append("$indent$title\n")
+        super.renderPlainText(builder, indent)
+    }
 }
 
 abstract class Environment(name: String, val params: MutableList<String> = mutableListOf(), val opts: MutableList<String> = mutableListOf()) : TagWithText(name) {
@@ -62,8 +82,18 @@ abstract class Environment(name: String, val params: MutableList<String> = mutab
         builder.appendLine("$indent\\end{$name}")
     }
 
+    override fun renderPlainText(builder: StringBuilder, indent: String) {
+        builder.appendLine()
+        renderPlainTextContent(builder, indent)
+        builder.appendLine()
+    }
+
     protected open fun renderContent(builder: StringBuilder, indent: String) {
         super.render(builder, indent)
+    }
+
+    protected open fun renderPlainTextContent(builder: StringBuilder, indent: String) {
+        super.renderPlainText(builder, indent)
     }
 
     protected fun addOption(option: String) {
@@ -79,6 +109,12 @@ class Document(val preamble: Preamble) : Environment("document") {
     fun toTex(): String {
         val builder = StringBuilder()
         render(builder, "")
+        return preamble.toString() + builder.toString()
+    }
+
+    fun toPlainText(): String {
+        val builder = StringBuilder()
+        renderPlainText(builder, "")
         return preamble.toString() + builder.toString()
     }
 }
