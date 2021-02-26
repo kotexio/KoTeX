@@ -32,3 +32,17 @@ val doc = document(beamer {
 println(doc.toTex())
 ```
 
+## Usage
+
+Declare the needed dependencies in the `build.gradle(.kts)` file:
+
+```kotlin
+dependencies {
+    implementation("io.kotex:kotex-core:$kotexVersion")    // main classes
+    implementation("io.kotex:kotex-bibtex:$kotexVersion")  // bibtex support
+    implementation("io.kotex:kotex-beamer:$kotexVersion")  // beamer support
+}
+```
+
+KoTeX isn't published anywhere yet, so before usage, you need to clone the KoTeX repo and do `:publishToMavenLocal`
+task.
