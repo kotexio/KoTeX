@@ -133,13 +133,21 @@ fun String.footnote(note: String) = this + footnote1(note)
 
 fun String.textbf() = "\\textbf{$this}"
 
+fun String.emph() = "\\emph{$this}"
+
 fun String.bold() = textbf()
+
+fun String.italic() = emph()
 
 @JvmName("boldText")
 fun Document.bold(text: String) = text.textbf()
 
 @JvmName("textBf")
 fun Document.textbf(text: String) = text.textbf()
+
+fun Document.emph(text: String) = text.emph()
+
+fun Document.italic(text: String) = text.italic()
 
 val Document.space: String
     get() = "\\,"
