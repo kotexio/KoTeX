@@ -89,7 +89,12 @@ open class AbstractListTag(name: String) : Environment(name) {
     }
 }
 
-class Itemize : AbstractListTag("itemize")
+class Itemize : AbstractListTag("itemize") {
+    operator fun String.minus(lhs: String) {
+        children.add(TextElement("\\item[$this] $lhs"))
+    }
+}
+
 class Enumerate : AbstractListTag("enumerate")
 
 class Abstract : Environment("abstract")
