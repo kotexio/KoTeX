@@ -93,6 +93,10 @@ class Itemize : AbstractListTag("itemize") {
     operator fun String.minus(lhs: String) {
         children.add(TextElement("\\item[$this] $lhs"))
     }
+
+    override operator fun String.unaryPlus() {
+        "$\\ast$" - this
+    }
 }
 
 class Enumerate : AbstractListTag("enumerate")
